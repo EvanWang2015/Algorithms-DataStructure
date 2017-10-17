@@ -173,14 +173,13 @@ private:
 		for (int i = 0; i < jobs_.size() && i < num_workers_; i++)
 		{
 			WorkerJob temp;
+			assigned_workers_.push_back(current_job_index);
+			start_times_.push_back(0);
 			temp.worker_finish_time = make_pair(i, jobs_[i]);
 			temp.jobs_index = current_job_index;
 			heap.push_back(temp);
 			current_job_index++;
-			heap_size++;
-
-			assigned_workers_.push_back(current_job_index);
-			start_times_.push_back(0);
+			heap_size++;			
 		}
 		//cout << "current job index after BuildHeap: " << current_job_index << " jobs.size(): " << jobs_.size() << std:: endl;
 		int sizeD = heap_size / 2;

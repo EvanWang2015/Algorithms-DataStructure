@@ -77,8 +77,8 @@ public:
 	{
 		if (i == -1)
 			return;
-		PreOrderTraversal(left[i], result);
-		PreOrderTraversal(right[i], result);
+		PostOrderTraversal(left[i], result);
+		PostOrderTraversal(right[i], result);
 		result.push_back(key[i]);
 	}
 

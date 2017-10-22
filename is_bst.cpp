@@ -53,7 +53,7 @@ void PreOrderSearch(const vector<Node>& tree, int i, bool& flag)
 	if (tree[i].right != -1)
 	{
 		long right_key = tree[tree[i].right].key;
-		if (tree[i].key >= right_key)
+		if (tree[i].key >= right_key || right_key>tree[0].key)
 		{
 			flag = false;
 			return;
@@ -93,6 +93,6 @@ int main() {
 	{
 		cout << "INCORRECT" << endl;
 	}
-	system("pause");
+	//system("pause");
 	return 0;
 }

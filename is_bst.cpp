@@ -16,7 +16,7 @@ Time: 10/22/2017
 #include <algorithm>
 #include <iostream>
 #include <vector>
-
+#include <climits>
 using std::cin;
 using std::cout;
 using std::endl;
@@ -26,52 +26,35 @@ struct Node {
 	long key;
 	int left;
 	int right;
-
+	int branch;
 	Node() : key(0), left(-1), right(-1) {}
 	Node(long key_, int left_, int right_) : key(key_), left(left_), right(right_) {}
 };
 
-void PreOrderSearch(const vector<Node>& tree, int i, bool& flag)
+bool isBSTUtil(vector<Node> &tree, int i, long min, long max)
 {
+	/* an empty tree is BST */
 	if (i == -1)
-	{
-		return;
-	}
-	PreOrderSearch(tree, tree[i].left, flag);
-	
-	if (tree[i].left != -1)
-	{
-		long left_key = tree[tree[i].left].key;
-		if (tree[i].key <= left_key)
-		{
-			flag = false;
-			return;
-		}
-			
-	}
-		
-	if (tree[i].right != -1)
-	{
-		long right_key = tree[tree[i].right].key;
-		if (tree[i].key >= right_key || right_key>tree[0].key)
-		{
-			flag = false;
-			return;
-		}
-			
-	}
-			
-	PreOrderSearch(tree, tree[i].right, flag);
+		return true;
+
+	/* false if this node violates the min/max constraint */
+	if (tree[i].key <= min || tree[i].key >= max)
+		return false;
+
+	/* otherwise check the subtrees recursively,
+	tightening the min or max constraint */
+	return
+		isBSTUtil(tree, tree[i].left, min, tree[i].key) &&  // Allow only distinct values
+		isBSTUtil(tree, tree[i].right, tree[i].key, max);  // Allow only distinct values
 }
-bool IsBinarySearchTree(const vector<Node>& tree) {
-	// Implement correct algorithm here
-	bool flag = true;
 
+bool IsBinarySearchTree(vector<Node>& tree)
+{
+	long min = LONG_MIN;
+	long max = LONG_MAX;
 	if (tree.size() == 0)
-		return flag;
-	PreOrderSearch(tree, 0, flag);
-
-	return flag;
+		return true;
+	return isBSTUtil(tree, 0, min, max);
 }
 
 int main() {

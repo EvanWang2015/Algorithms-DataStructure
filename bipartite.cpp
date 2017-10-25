@@ -21,33 +21,43 @@ int bipartite(vector<vector<int> > &adj) {
 	queue<int> que;
 	vector<int> distance(adj.size(), INT_MAX);
 
-	que.push(0);
-	distance[0] = 0;
-	while (!que.empty())
+	//que.push(0);
+	//distance[0] = 0;
+	for (int i = 0; i < adj.size(); i++)
 	{
-		int u = que.front();
-		que.pop();
-		vector<int>::iterator it;
-		for (it = adj[u].begin(); it != adj[u].end(); it++)
+		if (distance[i] == INT_MAX)
 		{
-			if (distance[*it] == INT_MAX)
+			que.push(i);
+			distance[i] =0;
+
+			while (!que.empty())
 			{
-				que.push(*it);
-				if (distance[*it] == INT_MAX)
+				int u = que.front();
+				que.pop();
+				vector<int>::iterator it;
+				for (it = adj[u].begin(); it != adj[u].end(); it++)
 				{
-					if (distance[u] == 0)
-						distance[*it] = 1;
+					if (distance[*it] == INT_MAX)
+					{
+						que.push(*it);
+						if (distance[*it] == INT_MAX)
+						{
+							if (distance[u] == 0)
+								distance[*it] = 1;
+							else
+								distance[*it] = 0;
+						}
+					}
 					else
-						distance[*it] = 0;						
+					{
+						if (distance[u] == distance[*it])
+							return 0;
+					}
 				}
-			}
-			else
-			{
-				if (distance[u] == distance[*it])
-					return 0;
 			}
 		}
 	}
+	
 
 	return 1;
 }
@@ -64,6 +74,6 @@ int main() {
 	}
 	std::cout << bipartite(adj);
 
-	//system("pause");
+	system("pause");
 	return 0;
 }

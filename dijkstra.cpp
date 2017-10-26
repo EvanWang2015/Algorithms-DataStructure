@@ -41,7 +41,10 @@ int distance(vector<vector<iPair> > &adj, int s, int t) {
 		}
 	}
 	
-	return dist[t];
+	if (dist[t] != INT_MAX)
+		return dist[t];
+	else
+		return -1;
 }
 
 int main() {

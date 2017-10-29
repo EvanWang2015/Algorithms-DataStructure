@@ -4,6 +4,7 @@
 #include <queue>
 #include <functional>
 #include <climits>
+
 using std::vector;
 using std::queue;
 using std::pair;
@@ -18,14 +19,7 @@ void shortest_paths(vector<vector<iPair> > &adj, int s, vector<long long> &dista
 	int n = adj.size();
 
 	vector<iPair>::iterator it;
-	/*for (it = adj[s].begin(); it != adj[s].end(); it++)
-	{
-	int v = (*it).first;
-	int weight = (*it).second;
-	if (distance[v] > distance[s] + weight)
-	distance[v] = distance[s] + weight;
-	}
-	*/
+
 	queue<int> neg_que;
 	for (int i = 1; i <n; i++)
 	{
@@ -134,6 +128,6 @@ int main() {
 		}
 	}
 
-	//system("pause");
+	system("pause");
 	return 0;
 }

@@ -1,5 +1,6 @@
 /*
 Clustering with Kruskal algorithm.
+Author: Haitang Wang
 */
 
 #include <algorithm>
